@@ -48,10 +48,6 @@ export const AddTask = ({addTodo,}) => {
       />
 
       <Btn handleOnPress={handleAddTodo} title="add" />
-
-      {/* <Pressable onPress={handleAddTodo} style={inputStyles.button}>
-        <Text style={{color:'white'}}>Add Todo</Text>
-      </Pressable> */}
     </View>
   );
 };

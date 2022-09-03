@@ -87,16 +87,7 @@ const Task = ({data, deleteTodo, editTodo}) => {
       <Pressable onPress={handlePress} style={inputStyles.button}>
         <Text style={{color:'white'}}>Update Todo</Text>
       </Pressable>
-      {/* <Button title="Add Todo" /> */}
     </View>
-
-
-                {/* <Button title="Update" onPress={handlePress} /> */}
-                {/* <Pressable
-                style={[styles.button, styles.buttonClose]}
-                onPress={handlePress}>
-                <Text style={taskStyles.textStyle}>Update</Text>
-              </Pressable> */}
               </View>
             </View>
           </Modal>

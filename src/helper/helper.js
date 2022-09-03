@@ -9,13 +9,6 @@ export const updateSavedStorage = (storage, todos) => {
 }
 
 export const addToStorage = (storage, newTodos) => {
-  // const getFromStorage = storage.getString("todos");
-  // var newTodos=[]
-  // if(getFromStorage !== undefined){
-  //   const allTodos = JSON.parse(getFromStorage);
-  //   newTodos = [...allTodos,newTodo]
-  // }
-  
   storage.set("todos", JSON.stringify(newTodos));
 };
 
