@@ -15,19 +15,16 @@ import {inputStyles, taskStyles} from '../styles/homeStyle';
 import { Btn } from './Button';
 
 
-const Task = ({data, deleteTodo, editTodo}) => {
-   const [todo, setTodo] = useState(data.text)
+const Task = ({data, deleteTodo}) => {
    
   return (
     <View style={taskStyles.taskStyling}>
       <View style={taskStyles.left}>
-        <Text style={taskStyles.text}>{todo}</Text>
+        <Text style={taskStyles.text}>{data.text}</Text>
       </View>
 
       <View style={taskStyles.right}>
-        <Btn  title="delete" handleOnPress={() => {deleteTodo(data)}} />
-        <Btn  title="edit" handleOnPress={ () => setShowModal(true)} />
-       
+        <Btn  title="delete" handleOnPress={() => {deleteTodo(data)}} /> 
       </View>
     </View>
   );

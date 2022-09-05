@@ -1,5 +1,4 @@
 import React from 'react';
-import {Button} from 'react-native';
 import {Btn} from '../components/Button';
 
 const Login = props => {

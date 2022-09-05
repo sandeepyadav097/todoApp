@@ -7,10 +7,7 @@ export const Btn = ({title, handleOnPress}) =>{
 
   const renderButton = (title) => {
     if(title=='delete'){
-      return <AntDesign name="delete" size={15} color="red" />
-    }
-    else if(title=='edit'){
-      return <AntDesign name="edit" size={15} color="green" />
+      return <AntDesign name="delete" size={20} color="red" />
     }
     else if(title=='Login'){
       return  <Entypo name="login" size={30} color="white" />
@@ -29,9 +26,18 @@ export const Btn = ({title, handleOnPress}) =>{
     }
   }
 
+  const returnStyle = () => {
+    if(title == 'delete') {
+      return {backgroundColor:'transparent'}
+    }
+    else{
+      return inputStyles.button
+    }
+  }
+
   return(
     
-    <Pressable onPress={() => handleOnPress()} style={inputStyles.button}>
+    <Pressable onPress={() => handleOnPress()} style={returnStyle}>
     {renderButton(title)}
   </Pressable>
   )

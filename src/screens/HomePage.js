@@ -38,7 +38,7 @@ const HomePage = props => {
     if(modalText.trim().length > 0){
         Keyboard.dismiss();
         const newTd = todos.filter(todo => todo.id != modalId);
-        newTd.push({id:Date.now().toString(), text:modalText})
+        newTd.unshift({id:Date.now().toString(), text:modalText})
         setTodos(newTd)  
         editTodo(newTd)
         setShowModal(!showModal)

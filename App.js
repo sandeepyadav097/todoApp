@@ -1,11 +1,7 @@
 import {registerRootComponent} from 'expo';
-import React, {createContext, useContext, useRef} from 'react';
-import {StatusBar} from 'expo-status-bar';
+import React, {createContext, useRef} from 'react';
 import {
-  StyleSheet,
-  Text,
   View,
-  Button,
   Linking,
   AppState,
   SafeAreaView,
@@ -13,8 +9,6 @@ import {
 import * as LocalAuthentication from 'expo-local-authentication';
 import {useEffect, useState} from 'react';
 import Login from './src/screens/Login';
-import Home from './src/screens/Home';
-import {AddTask} from './src/components/Input';
 import {appStyle, homeStyle} from './src/styles/homeStyle';
 import {MMKV} from 'react-native-mmkv';
 import HomePage from './src/screens/HomePage';
