@@ -7,6 +7,7 @@ import Task from '../components/Tasks';
 import * as helpers from '../helper/helper';
 import {homeStyle, taskStyles, inputStyles} from '../styles/homeStyle';
 import { Entypo } from '@expo/vector-icons';
+import { addTodos, deleteTodos, updateTodo } from '../helper/utilities';
 
 const HomePage = props => {
   const [todos, setTodos] = useState([]);
@@ -24,14 +25,14 @@ const HomePage = props => {
 
   // adds a new todo to storage 
   const addTodo = newTodo => {
-    const newTodos = [...todos, newTodo];
+    const newTodos = addTodos(todos, newTodo);
     setTodos(newTodos);
     helpers.updateSavedStorage(storage, newTodos);
   };
 
   // deletes a todo and updates storage
   const deleteTodo = removeTodo => {
-    const filteredData = todos.filter(todo => todo != removeTodo);
+    const filteredData = deleteTodos(todos,removeTodo)
     setTodos(filteredData);
     helpers.updateSavedStorage(storage, filteredData);
   };
@@ -42,8 +43,7 @@ const HomePage = props => {
 
     if(modalText.trim().length > 0){
         Keyboard.dismiss();
-        const newTd = todos.filter(todo => todo.id != modalId);
-        newTd.unshift({id:Date.now().toString(), text:modalText})
+        const newTd = updateTodo(todos, modalId, modalText)
         setTodos(newTd)  
         editTodo(newTd)
         setShowModal(!showModal)
