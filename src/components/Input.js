@@ -16,6 +16,7 @@ import { Btn } from './Button';
 export const AddTask = ({addTodo,}) => {
   const [text, onChangeText] = React.useState('');
 
+  // Input Component for Adding Todo. Show alert for invalid strings and uses Current Date for ID.
   const handleAddTodo = () => {
     if(text.trim().length > 0){
       Keyboard.dismiss();
@@ -35,7 +36,7 @@ export const AddTask = ({addTodo,}) => {
   }
 
 
-
+  // Text Input for Add Todo and Custom Button
   return (
     <View style={inputStyles.inputView}>
       <TextInput

@@ -16,23 +16,28 @@ const HomePage = props => {
 
   const storage = useContext(StorageContext);
 
+  // Fetches saved Todos for localstorage 
   useEffect(() => {
     const allTodos = helpers.getAllData(storage);
     setTodos(allTodos);
   }, []);
 
+  // adds a new todo to storage 
   const addTodo = newTodo => {
     const newTodos = [...todos, newTodo];
     setTodos(newTodos);
     helpers.updateSavedStorage(storage, newTodos);
   };
 
+  // deletes a todo and updates storage
   const deleteTodo = removeTodo => {
     const filteredData = todos.filter(todo => todo != removeTodo);
     setTodos(filteredData);
     helpers.updateSavedStorage(storage, filteredData);
   };
 
+  // handles update. Filters a todo and pushes it in the front to emphasize update. 
+  // Shows alert for invalid input  
   const handleUpdate = () => {
 
     if(modalText.trim().length > 0){
@@ -53,10 +58,12 @@ const HomePage = props => {
      
 } 
 
+// saved edited todo to storage
   const editTodo = data => {
     helpers.updateSavedStorage(storage, data);
   };
 
+  // deletes all saved todos
   const clearAll = () => {
     Alert.alert( "Warning",
         "This action is not reversible.\nThis will delete all saved todos.",
@@ -68,6 +75,7 @@ const HomePage = props => {
     
   }
 
+  // flat list render helper function
   const renderItem = ({item}) => {
     return (
         <TouchableOpacity onPress={() => { setModalId(item.id); setShowModalText(item.text) ;setShowModal(!showModal) }}>
@@ -82,6 +90,10 @@ const HomePage = props => {
     );
   };
 
+  // Components :-
+  // 1. - Header with Logout and Delete All button.
+  // 2. -  All Todo list with delete Button.
+  // 3. - Modal to facilitate editing
   return (
     <View style={homeStyle.container}>
       <View style={homeStyle.header}>

@@ -15,6 +15,7 @@ import {inputStyles, taskStyles} from '../styles/homeStyle';
 import { Btn } from './Button';
 
 
+// Task Component for Rendering Todo and a delete button.
 const Task = ({data, deleteTodo}) => {
    
   return (

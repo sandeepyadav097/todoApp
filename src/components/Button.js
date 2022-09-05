@@ -5,6 +5,7 @@ import { AntDesign, Entypo, MaterialIcons } from '@expo/vector-icons';
 
 export const Btn = ({title, handleOnPress}) =>{
 
+  // Custom Button Component for rendering Icons
   const renderButton = (title) => {
     if(title=='delete'){
       return <AntDesign name="delete" size={20} color="red" />
@@ -26,6 +27,7 @@ export const Btn = ({title, handleOnPress}) =>{
     }
   }
 
+  // Style Conditional
   const returnStyle = () => {
     if(title == 'delete') {
       return {backgroundColor:'transparent'}
