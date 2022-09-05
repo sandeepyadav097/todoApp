@@ -1,15 +1,19 @@
 import React, {useContext, useEffect, useState} from 'react';
-import { Text, View, FlatList, Alert} from 'react-native';
+import { Text, View, FlatList, Alert, Touchable, Modal, Pressable,Keyboard, TouchableOpacity, TextInput} from 'react-native';
 import {StorageContext} from '../../App';
 import {Btn} from '../components/Button';
 import {AddTask} from '../components/Input';
 import Task from '../components/Tasks';
 import * as helpers from '../helper/helper';
-import {homeStyle} from '../styles/homeStyle';
+import {homeStyle, taskStyles, inputStyles} from '../styles/homeStyle';
 import { Entypo } from '@expo/vector-icons';
 
 const HomePage = props => {
   const [todos, setTodos] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [modalText, setShowModalText] = useState("");
+  const [modalId, setModalId] = useState("")  
+
   const storage = useContext(StorageContext);
 
   useEffect(() => {
@@ -29,15 +33,28 @@ const HomePage = props => {
     helpers.updateSavedStorage(storage, filteredData);
   };
 
+  const handleUpdate = () => {
+
+    if(modalText.trim().length > 0){
+        Keyboard.dismiss();
+        const newTd = todos.filter(todo => todo.id != modalId);
+        newTd.push({id:Date.now().toString(), text:modalText})
+        setTodos(newTd)  
+        editTodo(newTd)
+        setShowModal(!showModal)
+        }else{
+            
+            Alert.alert( "Invalid Input",
+            "Todo cannot be empty",
+            [
+              { text: "OK", onPress: () => console.log("OK Pressed") }
+            ])
+        }
+     
+} 
+
   const editTodo = data => {
-    console.log(data);
-    const updated = todos.map(todo => {
-      if (todo.id == data.id) {
-        return {id: data.id, text: data.text};
-      }
-      return todo;
-    });
-    helpers.updateSavedStorage(storage, updated);
+    helpers.updateSavedStorage(storage, data);
   };
 
   const clearAll = () => {
@@ -53,11 +70,15 @@ const HomePage = props => {
 
   const renderItem = ({item}) => {
     return (
-      <Task
+        <TouchableOpacity onPress={() => { setModalId(item.id); setShowModalText(item.text) ;setShowModal(!showModal) }}>
+
+<Task
         key={item.id}
         data={item}
         deleteTodo={deleteTodo}
         editTodo={editTodo}></Task>
+            </TouchableOpacity>
+     
     );
   };
 
@@ -84,6 +105,46 @@ const HomePage = props => {
       <View style={homeStyle.footer}>
         <AddTask addTodo={addTodo} />
       </View>
+
+
+
+      {showModal && 
+       <TouchableOpacity
+       onPress={() => {
+         Keyboard.dismiss();
+       }}>
+       <Modal
+         animationType="slide"
+         transparent={false}
+         visible={showModal}
+         onRequestClose={() => {  
+           setShowModal(!showModal);
+         }}>
+         <View style={taskStyles.centeredView}>
+           <View >
+             <Text style={taskStyles.modalText}>Update Todo</Text>
+
+            
+             <View style={inputStyles.inputView}>
+   <TextInput
+     style={inputStyles.inputField}
+     onChangeText={setShowModalText}
+     value={modalText}
+     placeholder="Update Todo"
+     placeholderTextColor="#999" 
+     keyboardType="default"
+   />
+
+   <Pressable onPress={handleUpdate} style={inputStyles.button}>
+     <Text style={{color:'white'}}>Update Todo</Text>
+   </Pressable>
+ </View>
+           </View>
+         </View>
+       </Modal>
+     </TouchableOpacity>}
+
+
     </View>
   );
 };
